@@ -44,7 +44,7 @@ class NewVisitorTest(LiveServerTestCase):
 		# and now the page lists "1: Buy peacock feathers" as an item in table
 		inputbox.send_keys(Keys.ENTER)
 		edith_list_url = self.browser.current_url
-		self.assertRegex(edith_list_url, '/list/.+')	#.+ 1 or more any character
+		self.assertRegex(edith_list_url, '/lists/.+')	#.+ 1 or more any character
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
 
 		# There is still a text box inviting her to add another item. She
@@ -62,7 +62,7 @@ class NewVisitorTest(LiveServerTestCase):
 		## We use a new browser seesoin to make sure that no information
 		## of Edith's is coming through from cookies etc
 		self.browser.quit()
-		self.browser = webdriver.FireFox()
+		self.browser = webdriver.Firefox()
 
 		# Francis visitis the home page. There is no sign of Edith's list
 		self.browser.get(self.live_server_url)
@@ -74,11 +74,11 @@ class NewVisitorTest(LiveServerTestCase):
 		# He is less interesting than Edith...
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Buy milk')
-		inputbox.send_keys('Keys.ENTER')
+		inputbox.send_keys(Keys.ENTER)
 
 		# Francis get his own unique URL
 		francis_list_url = self.browser.current_url
-		self.assertRegex(francis_list_url, '/list/.+')
+		self.assertRegex(francis_list_url, '/lists/.+')
 		self.assertNotEqual(francis_list_url, edith_list_url)
 
 		# Again, there is no trace of Edith's list
